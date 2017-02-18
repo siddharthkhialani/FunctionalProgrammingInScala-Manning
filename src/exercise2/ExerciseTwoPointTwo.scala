@@ -1,4 +1,4 @@
-package excercise2
+package exercise2
 
 object ExerciseTwoPointTwo {
   def isSorted[A](as: Array[A], ordered: (A, A) => Boolean) : Boolean = {
