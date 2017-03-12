@@ -94,6 +94,11 @@ object Exercise6 {
     } yield (y.candies, y.coins)
   }
 
+  def simulateMachine1(inputs: List[Input]): State[Machine, (Int, Int)] = {
+    State.sequence(inputs.map(input => State((a: Machine) =>
+    {val newState = a.nextState(input);((newState.candies, newState.coins) ,newState)})) ).map(s => s.last)
+  }
+
   def main(args: Array[String]): Unit = {
     println(Int.MaxValue)
     println(nonNegativeInt(SimpleRNG(42)))
@@ -108,5 +113,6 @@ object Exercise6 {
     println("Map2: " + map2IntermsOfFlatMap(rng1 => rng1.nextInt, rng2 => rng2.nextInt)((a, b) => a * b)(SimpleRNG(42)))
 
     println("Machine: " + simulateMachine(List(Coin, Turn, Coin, Turn): List[Input]).run(Machine(true, 10, 4)))
+    println("Machine: " + simulateMachine1(List(Coin, Turn, Coin, Turn): List[Input]).run(Machine(true, 10, 4)))
   }
 }
